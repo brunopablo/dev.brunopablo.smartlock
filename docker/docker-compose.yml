@@ -1,0 +1,17 @@
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: smartlock
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=adm
+      - MONGO_INITDB_ROOT_PASSWORD=123
+      - GLIBC_TUNABLES=glibc.pthread.rseq=0
+    security_opt:
+      - seccomp:unconfined
+    volumes:
+      - mongodata:/data/db
+
+volumes:
+  mongodata:
