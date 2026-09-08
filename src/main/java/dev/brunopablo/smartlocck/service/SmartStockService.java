@@ -11,11 +11,13 @@ import dev.brunopablo.smartlocck.domain.CsvItemModel;
 public class SmartStockService {
 
     private final ReportService reportService;
+    private final PurchaseService purchaseService;
 
     private final Double BUFFER_STOCK_MARGIN = 0.2;
 
-	public SmartStockService(ReportService reportService) {
+	public SmartStockService(ReportService reportService, PurchaseService purchaseService) {
         this.reportService = reportService;
+        this.purchaseService = purchaseService;
     }
 
     public void process(StartRequestDto startData) {
@@ -27,6 +29,9 @@ public class SmartStockService {
                 item -> {
                     if (item.getQuantity() < item.getReorderThreshold()) {
                         var reorderQuantity = getReorderQuantity(item);
+
+                        // chamar service de compras
+                        purchaseService.sendPurchaseRequest(item, reorderQuantity);
                     }
                 }
             );
