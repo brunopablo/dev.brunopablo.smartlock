@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import dev.brunopablo.smartlocck.client.dto.AuthRequest;
 import dev.brunopablo.smartlocck.client.dto.AuthResponse;
 
-@FeignClient(name = "AuthClient", url = "${app.config.url}")
+@FeignClient(name = "AuthClient", url = "${app.authentication.config.url}")
 public interface AuthClient {
 
     @PostMapping(path = "/api/token")

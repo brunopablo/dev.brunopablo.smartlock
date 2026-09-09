@@ -31,7 +31,7 @@ public class SmartStockService {
                         var reorderQuantity = getReorderQuantity(item);
 
                         // chamar service de compras
-                        purchaseService.sendPurchaseRequest(item, reorderQuantity);
+                        var purchased = purchaseService.sendPurchaseRequest(item, reorderQuantity);
                     }
                 }
             );
