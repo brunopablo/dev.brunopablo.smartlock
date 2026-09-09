@@ -15,17 +15,17 @@ public class PurchaseService {
     private final AuthService authService;
     private final PurchaseClient purchaseClient;
 
-    public PurchaseService(AuthService authService, PurchaseClient purchaseClient) {
+    public PurchaseService(AuthService authService, 
+                           PurchaseClient purchaseClient
+    ) {
         this.authService = authService;
         this.purchaseClient = purchaseClient;
     }
 
     public boolean sendPurchaseRequest(CsvItemModel item, Integer reorderQuantity){
 
-        // fazer autenticacao
         var token = authService.getToken();
 
-        // enviar pedido
         var purchaseResponse = purchaseClient.makePurchase(
             token,
             new ItemPurchaseRequest(
@@ -39,7 +39,7 @@ public class PurchaseService {
 
         if (!purchaseResponse.getStatusCode().is2xxSuccessful()) {
             logger.error(
-                "Unsuccessful request. THe purchase was not completed. Info: Status {}, Response " + purchaseResponse.getStatusCode().value(), purchaseResponse.getBody()
+                "Unsuccessful request. The purchase was not completed. Info: Status {}, Response " + purchaseResponse.getStatusCode().value(), purchaseResponse.getBody()
             );
 
             return false;
